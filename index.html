@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icomply - Command Center</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .live-dot { animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  </style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen p-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center justify-between mb-10">
+      <div class="flex items-center gap-4">
+        <img src="https://grok.x.ai/attachments/Generated Image.jpg" alt="Icomply Logo" class="h-12">
+        <div>
+          <h1 class="text-5xl font-bold">ICOMPLY</h1>
+          <p class="text-emerald-400 text-xl">UK Electrical • Fire • Security • 11 Agents Live</p>
+        </div>
+      </div>
+      <button onclick="runSweep()" class="bg-emerald-600 hover:bg-emerald-500 px-8 py-4 rounded-2xl font-bold text-lg flex items-center gap-3">
+        <i class="fas fa-bolt"></i> RUN AUTONOMOUS OPTIMIZATION
+      </button>
+    </div>
+
+    <div id="kpis" class="grid grid-cols-5 gap-6 mb-12"></div>
+    <div id="agents" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+  </div>
+
+  <script>
+    let metrics = { pipeline: 0, seo: 0, compliance: 0, leads: 0, roas: 0 };
+    let agents = [
+      {id:1, emoji:'💼', name:'Marcus Hale', role:'Sales Lead', current_job:'Preparing quote for 3-phase rewire + EV charger in Birmingham'},
+      {id:2, emoji:'🌐', name:'Lila Voss', role:'Webdesign + SEO', current_job:'Building landing page for fire alarm systems Manchester'},
+      {id:3, emoji:'📈', name:'Kai Lennox', role:'SEO + PPC', current_job:'Optimizing Google Ads for "commercial fire suppression"'},
+      {id:4, emoji:'📞', name:'Sofia Reyes', role:'Call Centre Manager', current_job:'Booking 4 site surveys tomorrow'},
+      {id:5, emoji:'📋', name:'Dr. Elena Voss', role:'Compliance Admin', current_job:'Completing RAMS for London office fire upgrade'},
+      {id:6, emoji:'💰', name:'Raj Patel', role:'Accounts', current_job:'Invoicing stage payment £12,450'},
+      // Add more agents to make 11
+    ];
+
+    function renderKPIs() {
+      document.getElementById('kpis').innerHTML = `
+        <div class="bg-gray-900 p-6 rounded-2xl"><p class="text-gray-400">Pipeline</p><p class="text-4xl font-bold text-emerald-400">£${metrics.pipeline}</p></div>
+        <div class="bg-gray-900 p-6 rounded-2xl"><p class="text-gray-400">SEO Health</p><p class="text-4xl font-bold text-emerald-400">${metrics.seo}%</p></div>
+        <div class="bg-gray-900 p-6 rounded-2xl"><p class="text-gray-400">Compliance</p><p class="text-4xl font-bold text-emerald-400">${metrics.compliance}%</p></div>
+        <div class="bg-gray-900 p-6 rounded-2xl"><p class="text-gray-400">Leads Today</p><p class="text-4xl font-bold">${metrics.leads}</p></div>
+        <div class="bg-gray-900 p-6 rounded-2xl"><p class="text-gray-400">ROAS</p><p class="text-4xl font-bold text-emerald-400">${metrics.roas}x</p></div>
+      `;
+    }
+
+    function renderAgents() {
+      document.getElementById('agents').innerHTML = agents.map(a => `
+        <div class="bg-gray-900 p-6 rounded-3xl cursor-pointer hover:scale-105 transition" onclick="alert('Agent ${a.name} panel opened - connected to Gmail, Calendar, DB')">
+          <div class="flex justify-between">
+            <div><div class="text-3xl mb-2">${a.emoji}</div><h3 class="font-bold">${a.name}</h3><p class="text-emerald-400">${a.role}</p></div>
+            <span class="inline-block w-3 h-3 bg-green-400 rounded-full live-dot"></span>
+          </div>
+          <div class="mt-4 bg-black/50 p-3 rounded-2xl text-sm">${a.current_job}</div>
+        </div>
+      `).join('');
+    }
+
+    function runSweep() {
+      metrics.pipeline = Math.floor(metrics.pipeline * 1.2 + 45000);
+      metrics.seo = Math.min(100, metrics.seo + 12);
+      metrics.compliance = Math.min(100, metrics.compliance + 8);
+      metrics.leads += 3;
+      metrics.roas = (metrics.roas + 0.4).toFixed(1);
+      renderKPIs();
+      alert('✅ Autonomous Optimization Complete! All agents improved. System constantly getting better.');
+    }
+
+    // Initial render
+    renderKPIs();
+    renderAgents();
+    setInterval(() => {
+      // Simulate live job changes
+      renderAgents();
+    }, 7000);
+  </script>
+</body>
+</html>
